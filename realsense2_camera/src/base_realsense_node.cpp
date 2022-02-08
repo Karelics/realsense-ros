@@ -210,6 +210,19 @@ static const rmw_qos_profile_t rmw_qos_profile_reliable_default =
     false
 };
 
+static const rmw_qos_profile_t rmw_qos_profile_reliable_default =
+{
+    RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+    1,
+    RMW_QOS_POLICY_RELIABILITY_RELIABLE,
+    RMW_QOS_POLICY_DURABILITY_VOLATILE,
+    RMW_QOS_DEADLINE_DEFAULT,
+    RMW_QOS_LIFESPAN_DEFAULT,
+    RMW_QOS_POLICY_LIVELINESS_SYSTEM_DEFAULT,
+    RMW_QOS_LIVELINESS_LEASE_DURATION_DEFAULT,
+    false
+};
+
 BaseRealSenseNode::BaseRealSenseNode(rclcpp::Node& node,
                                     rs2::device dev, std::shared_ptr<Parameters> parameters) :
     _is_running(true),
@@ -835,17 +848,17 @@ const rmw_qos_profile_t BaseRealSenseNode::qos_string_to_qos(std::string str)
         return rmw_qos_profile_unknown;
 #endif
     if (str == "SYSTEM_DEFAULT")
-        return rmw_qos_profile_system_default;
+        return rmw_qos_profile_reliable_default;
     if (str == "DEFAULT")
-        return rmw_qos_profile_default;
+        return rmw_qos_profile_reliable_default;
     if (str == "HID_DEFAULT")
     {
-        rmw_qos_profile_t profile = rmw_qos_profile_default;
+        rmw_qos_profile_t profile = rmw_qos_profile_reliable_default;
         profile.depth = 100;
         return profile;
     }
     if (str == "EXTRINSICS_DEFAULT")
-        return rmw_qos_profile_latched;
+        return rmw_qos_profile_reliable_default;
     if (str == "PARAMETER_EVENTS")
         return rmw_qos_profile_parameter_events;
     if (str == "SERVICES_DEFAULT")
