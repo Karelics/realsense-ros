@@ -200,7 +200,7 @@ static const rmw_qos_profile_t rmw_qos_profile_latched =
 static const rmw_qos_profile_t rmw_qos_profile_reliable_default =
 {
     RMW_QOS_POLICY_HISTORY_KEEP_LAST,
-    10,
+    1,
     RMW_QOS_POLICY_RELIABILITY_RELIABLE,
     RMW_QOS_POLICY_DURABILITY_VOLATILE,
     RMW_QOS_DEADLINE_DEFAULT,
